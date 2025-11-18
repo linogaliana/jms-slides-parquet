@@ -208,13 +208,13 @@ table_individu %>%
 
 ## [Conclusion: quelles perspectives pour la diffusion de données ?]{.r-fit-text} {.smaller}
 
-* Une alternative aux API de données
+* Une [**alternative aux API de données**]{.orange}
   * Approche simple et efficace pour la récupération de données brutes
 
-* Permet des alternatives à `Shiny` ou `Streamlit` pour les portails de _dataviz_ 
+* Permet des **[alternatives à `Shiny` ou `Streamlit`]{.orange}** pour les portails de _dataviz_ 
   * Des _dataviz_ complexes sur des serveurs statiques avec `DuckDB` 🦆 dans le navigateur
 
-![Un exemple de _dataviz_ construites sur des fichiers `Parquet` sans serveur](/images/dvf.png)
+![Un exemple de _dataviz_ construites sur des fichiers `Parquet` sans serveur. Version interactive sur [linogaliana.github.io/jms-slides-parquet/](https://linogaliana.github.io/jms-slides-parquet/#/title-slide)](/images/dvf.png)
 
 ```{ojs}
 //| echo: false
