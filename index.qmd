@@ -1,12 +1,13 @@
 ---
-title: La reproductibilité au service de la recherche et de la mise en production de projets statistiques
+title: Le format `Parquet` pour la diffusion de données
+subtitle: "**Un choix technique au service des utilisateurs**"
 date: 2025-11-26
 date-format: long
 lang: fr
 author:
-  - name: Romain Avouac
+  - name: Cédric Bobinec
     affiliations:
-      - name: Insee, Direction des statistiques démographiques et sociales
+      - name: Insee, Pôle Didoc
   - name: Lino Galiana
     orcid: 0000-0001-8663-5100
     affiliations:
@@ -16,207 +17,287 @@ footer: |
   **[15e édition des journées de méthodologie statistique](https://journees-methodologie-statistique.insee.net/)**
 format: jms-revealjs
 bibliography: references.bib
+eval: false
 ---
 
+## Contexte
 
-## Contexte {.smaller}
-
-* __["Crise de la reproductibilité"]{.orange}__ durable dans la recherche
-  * @ioannidis2005most, @chang2017, @kapoor2023leakage...
-  * Enjeu similaire dans l'industrie avec le problème du mur de la production [@Davenport2021Deployment]
-
-. . .
-
-
-* Facteurs multiples:
-    + Acculturation et incitations limités aux enjeux de reproductibilité ;
-    + Auditabilité limitée avec des données non partageables ;
-    + Recours à des logiciels propriétaires difficiles à auditer...
-
-. . .
-
-* Mouvement de la [**science ouverte**]{.orange} et [**politique plus active des revues scientifiques**]{.orange} pour plus de transparence
-
-
-## Exemple: la politique de l'AEA {.smaller}
-
-![Frise empruntée à @colliard2023economics](/images/aea.png)
-
-Plus de détails récents, dans [AEA Data and code sharing policy](https://www.aeaweb.org/journals/data/data-code-policy) <a href="https://datacodestandard.org/"><img src="https://www.aeaweb.org/content/file?id=20037" alt="DCAS 1.0"></a> et @vilhuber2025
-
-## L'échelle de la reproductibilité
-
-<br>
-
-![_Source_: @peng2011reproducible](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/reprospectrum.png)
-
-* Une reproductibilité parfaite est coûteuse
-* `Git` est un standard atteignable et efficient
-
-
-## Partage et transparence des données {.smaller}
-
-- Beaucoup de [**données non partageables**]{.orange} (secret industriel, confidentialité...)
-	- France : accès simplifié aux données pour les chercheurs avec le CASD
-
-. . .
-
-- Approches à plusieurs niveaux :
-	- Partage du protocole de collecte (sciences expérimentales)
-	- Données synthétiques
-	- Tiers de confiance [@perignon2019certify]
-
-. . .
-
-- Sujet de [**bonnes pratiques**]{.orange} dans le format des données sources et intermédiaires
-    + ~~Excel~~ 🔴, `CSV` 🟠, `Parquet` 🟢
-
-. . .
-
-- Si la réplication n'est pas toujours possible, on peut au moins **[viser la reproductiblité]{.orange}**
-
-
-## Le début des problèmes
-
-![](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/environment_messy.png)
-
-## Le premier pas
-
-![](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/environment_clean.png)
-
-
-
-## Partage et transparence du code {.smaller}
-
-<h3>Premier niveau: lisibilité du code</h3>
-
-> "Le code est plus souvent lu qu’utilisé". Guido Van Rossum
-
-- Un **[outil de communication]{.orange}** de la méthodologie
-    + et de réplication de celle-ci (ex : _package_ {{< fa brands r-project >}}  d’économétrie)
-
-. . .
-
-- **[Conventions communautaires]{.orange}** : [_tidyverse style guide_](https://style.tidyverse.org/) ({{< fa brands r-project >}}), [_PEP8_](https://peps.python.org/pep-0008/) et [_PEP257_](https://peps.python.org/pep-0257/) ({{< fa brands python >}})
+- [**Fichiers détail anonymisés**]{.orange} diffusés sur [insee.fr](https://www.insee.fr/fr/accueil):
+  - une ligne par observation (un logement, un individu...)
+  - Des produits phare: [Sirene](https://www.insee.fr/fr/information/3591226), [BTS](https://www.insee.fr/fr/statistiques/8287396), [RP](https://www.insee.fr/fr/information/2383215), [fichier des prénoms](https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113), [décès](https://www.insee.fr/fr/information/4769950)...
 
 . . .
 
 
-- [**Outils simples**]{.orange} pour mettre en oeuvre : les _formatters_
-    + Très communs en {{< fa brands python >}}. Le meilleur : [`ruff`](https://docs.astral.sh/ruff/)
-    + Moins utilisés en {{< fa brands r-project >}} mais utiles. Le nouveau venu : [`Air`](https://posit-dev.github.io/air/)
+- Destinés à des [**utilisateurs avancés**]{.orange}:
+  - Construire d'autres croisements ou regroupements que ceux proposés sur [insee.fr](https://www.insee.fr/fr/accueil)
+  - Des précautions d'emploi à respecter (pondérations...)
 
 
-## Partage et transparence du code {.smaller}
+## [Avant `Parquet`: le recensement de la population (RP)]{.r-fit-text} 
 
-<h3>Deuxième niveau: lisibilité de la structure</h3>
+* Jusqu'à 100 variables et 25 millions de lignes
+* Diffusion en **[CSV zippés]{.orange}** ou `DBase` (format propriétaire)
 
-Plus de détails dans le cours de mise en production de l'ENSAE [@mise_en_prod]
+::: {.nonincremental}
+::::: {.callout-note}
+## Exemple: Recensement de la Population
+
+- [Ficher détail](https://www.insee.fr/fr/statistiques/8268848?sommaire=8205966) :
+    - `CSV`: > 4Go
+    - `Parquet`: < 500Mo
+:::::
+:::
+
+## [Après `Parquet`: le recensement de la population (RP)]{.r-fit-text} 
+
+Retours utilisateurs après la première diffusion du RP en `Parquet` (fin 2023)
 
 :::: {.columns}
 
-::: {.column width="40%"}
-
-```
-├── report.ipynb
-├── correlation.png
-├── data.csv
-├── data2.csv
-├── fig1.png
-├── figure 2 (copy).png
-├── report.pdf
-├── partial data.csv
-├── script.py
-└── script_final.py
-```
+::: {.column width="50%"}
+![](/images/retour_utilisateur_1.png){width=400px}
 :::
 
-::: {.column width="60%"}
-```
-├── data
-│   ├── raw
-│   │   ├── dpe_logement_202103.csv
-│   │   └── dpe_logement_202003.csv
-│   └── interim
-│       └── dpe_logement_merged_preprocessed.csv
-├── notebooks
-│   └── report.ipynb
-├── src
-|   ├── main.R
-|   ├── preprocessing.R
-│   └── generate_plots.R
-└── reports
-    ├── report.pdf
-    └── figures
-        ├── histogram_energy_diagnostic.png
-        ├── barplot_consumption_pcs.png
-        ├── correlation_matrix.png
-        └── correlation.png
-```
+::: {.column width="50%"}
+![](/images/retour_utilisateur_2.png){width=400px}
 :::
 
 ::::
 
-## Partage et transparence du code {.smaller}
+:::: {.columns}
 
-<h3>Troisième niveau: d'où vient ce chiffre ?</h3>
+::: {.column width="50%"}
+![](/images/img3.png){width=400px}
+:::
 
-* `Git` {{< fa brands git-alt >}}, la première des bonnes pratiques
-	- Fiabilise le partage et l’évolution du code
-	- Oblige à se poser la question des bonnes pratiques
-	- Ne suffit pas lorsqu’on a plus du code dans un projet
+::: {.column width="50%"}
+![](/images/img4.png){width=400px}
+:::
 
-. . .
-
-* [**_"Literate programming"_**]{.orange} [@Knuth1984] = mélanger texte et code: 
-  - Jongler entre le code et le papier dans $\LaTeX$: source d'erreur
-  - `Jupyter notebook` {{< iconify vscode-icons:file-type-jupyter style="color:#74aadb;" >}} : intéressant [@perkel2018jupyter] mais potentiels problèmes de reproductibilité [@samuel2023computational].
-  - Meilleur outil : `Quarto` {{< iconify simple-icons:quarto style="color:#74aadb;" >}} !
+::::
 
 
+## Enjeux
 
-
-## [Partage et transparence de la configuration]{.r-fit-text}
-
-Un projet lisible, structuré et versionné suffit-il à assurer la reproductibilité ?
-
-![](https://ensae-reproductibilite.github.io/slides/img/IWOMM.jpg){fig-align="center"}
-
-
-## [Partage et transparence de la configuration]{.r-fit-text} {.smaller}
-
-- De nombreux [**éléments d’environnement**]{.orange} peuvent faire qu'un code est non réplicable:
-  - Environnement logiciel, secrets d'authentification, etc.
-  - Certains sont partageables, d'autres non (ex: jetons d'API 👮)
-  - (Auto)documenter dans le code (variables d'environnement et `dotenv` ou `.Renviron`)
+* [**Plusieurs approches**]{.orange} pour diffuser des données:
+    * [**Fichier**]{.green} vs [**API**]{.green}
 
 . . .
 
-- Solution 1 : [**environnements virtuels**]{.orange}
-	- Partager la recette de construction de l’environnement ayant permis de faire tourner le code
-	- Solution technique: `venv` ou `uv` ({{< fa brands python >}}), `renv` en ({{< fa brands r-project >}})
+- Le [**choix d'un mode de diffusion**]{.orange} répond à un [**arbitrage**]{.orange} entre plusieurs critères :
+    - [**Public cible**]{.green}
+    - [**Finalité**]{.green} (traitement, analyse, diffusion)
+    - [**Volumétrie**]{.green}
+    - [**Interopérabilité**]{.green}
+
+
+## Limites des formats usuels
+
+- Les [**formats usuels**]{.orange} (`CSV`, `JSON`, `XML`) sont utiles pour :
+    - Le traitement de [**faibles volumes**]{.green} de données
+    - La [**diffusion**]{.green} de données simples
 
 . . .
 
-- Solution 2: la **[conteneurisation]{.orange}**
-	- Partager la recette de construction de l’ordinateur ayant permis de faire tourner le code
-	- Solution technique: `Docker` {{< fa brands docker >}}
+- [**Limités**]{.orange} pour le traitement de [**données volumineuses**]{.orange} ou [**complexes**]{.orange}
+  - [**Non-compressés**]{.green} : fichiers lourds
+  - [**Orientés ligne**]{.green} : peu adaptés aux traitements analytiques
+  - [**Pas de métadonnées**]{.green} : problèmes à la lecture
 
+## `Parquet`: quel avantage ? 
 
-## Conclusion
-
-- On a des [**outils techniques**]{.orange} à utiliser pour résoudre la crise de la reproductibilité:
-  - Socle minimal est atteignable simplement,
-  - Etapes suivantes selon les projets.
-
-. . .
-
-- Mais aussi et surtout une [**démarche à adopter**]{.orange}
+- Un format [**interopérable**]{.orange} :
+    - Très bien intégré aux outils des utilisateurs experts ({{< fa brands r-project >}}, {{< fa brands python >}} ou {{< fa brands js-square >}} grâce à `Arrow` et `DuckDB`)
 
 . . .
 
-- Aux [**bénéfices nombreux**]{.orange}:
-    - Moindre coût de maintenance,
-    - Plus de transparence, de réutilisation...
+- Un format [**optimisé**]{.orange}:
+    + Lecture et traitement du fichier accélérés
+
+. . .
+
+- Un format [**fiable**]{.orange}:
+    - Données conformes à l'intention du producteur...
+
+
+
+## [Quel gain de confort pour les utilisateurs ?]{.r-fit-text} 
+
+![](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/tableau-perf-parquet.png){fig-align="center"}
+
+
+## [Un [guide](https://ssphub.netlify.app/post/parquetrp/) pour accompagner la diffusion]{.r-fit-text}
+
++ [__Accompagner les utilisateurs__]{.orange} avancés ; 
+
+. . .
+
++ [__Donner envie à de nouveaux utilisateurs__]{.orange} d'explorer ;
+
+. . .
+
++ Illuster la [__richesse des données__]{.orange} avec des exemples ;
+
+. . .
+
++ Créer un guide modifiable de [__manière contributive__]{.orange} [{{< fa brands github >}}](https://github.com/InseeFrLab/exemples-recensement-parquet.git) 
+  + [Enrichissement du guide par un MCF en géographie](https://github.com/InseeFrLab/exemples-recensement-parquet/pull/2) ;
+
+
+. . .
+
++ Faire comprendre que ce choix technique innovant est au service du [__confort des utilisateurs__]{.orange}.
+
+
+## [Des exemples s'appuyant sur les outils des utilisateurs]{.r-fit-text} {.smaller}
+
+Classer les départements en fonction du nombre de centenaires recensés
+
+| individus_recenses | DEPT |
+|--------------------|------|
+| 1,334	| 75 | 
+| 1,175	| 13 | 
+| 963	| 69 | 
+| 952	| 06 | 
+
+
+::: {.panel-tabset group="language"}
+
+## `Observable` via `Quarto` {{< fa brands js-square >}} {.unnumbered .unlisted}
+
+```{{ojs}}
+db.query(
+`
+SELECT
+  SUM(IPONDI) AS individus_recenses,
+  DEPT
+FROM table_individu
+  WHERE AGED >= 100
+GROUP BY DEPT
+ORDER BY individus_recenses DESC
+`
+)
+```
+
+## `Python` {{< fa brands python >}} {.unnumbered .unlisted}
+
+```{.python}
+duckdb.sql(
+"""
+SELECT
+  SUM(IPONDI) AS individus_recenses,
+  DEPT
+FROM table_individu
+  WHERE AGED >= 100
+GROUP BY DEPT
+ORDER BY individus_recenses DESC
+"""
+)
+```
+
+## `R` {{< fa brands r-project >}} {.unnumbered .unlisted}
+
+```{.r}
+query <- paste(
+  "SELECT SUM(IPONDI) AS individus_recenses, DEPT",
+  "FROM table_individu",
+  "WHERE AGED >= 100",
+  "GROUP BY DEPT",
+  "ORDER BY individus_recenses DESC",
+  sep = " "
+)
+dbGetQuery(con, query)
+```
+
+## `R (dbplyr)` {{< fa brands r-project >}} {.unnumbered .unlisted} 
+
+```{.r}
+table_individu %>%
+  filter(AGED >= 100) %>%
+  group_by(DEPT) %>%
+  summarise(individus_recenses = as.integer(sum(IPONDI)), .groups = "drop") %>%
+  arrange(desc(individus_recenses))
+```
+
+:::
+
+## `Parquet` fin 2025
+
+* Nombreux jeux de données [**volumineux**]{.orange} diffusés en `Parquet`:
+    * Insee: [Sirene](https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/), [REU](https://www.insee.fr/fr/metadonnees/source/serie/s1046), [RP](https://www.insee.fr/fr/information/2383215), [BPE](https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537)...
+    * SSM: [bases statistiques de la délinquance](https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/)
+    * [`data.gouv`](https://www.data.gouv.fr/): beaucoup de conversions en `Parquet`
+
+. . .
+
+* Quelques bonnes pratiques à mettre en oeuvre:
+  * Optimiser les types des variables, trier les observations...
+  * @mauviere_2024_preparer_parquet donne de nombreux conseils utiles.
+
+
+## [Conclusion: quelles perspectives pour la diffusion de données ?]{.r-fit-text} {.smaller}
+
+* Une alternative aux API de données
+  * Approche simple et efficace pour la récupération de données brutes
+
+* Permet des alternatives à `Shiny` ou `Streamlit` pour les portails de _dataviz_ 
+  * Des _dataviz_ complexes sur des serveurs statiques avec `DuckDB` 🦆 dans le navigateur
+
+![Un exemple de _dataviz_ construites sur des fichiers `Parquet` sans serveur](/images/dvf.png)
+
+```{ojs}
+//| echo: false
+html`
+  <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+    <!-- Search bar at the top -->
+    <div>${viewof search}</div>
+
+    <!-- Two-column block -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; backgroundColor: '#293845';">
+      <div>${produce_histo(dvf)}</div>
+      <div>${viewof table_dvf}</div>
+    </div>
+
+
+  </div>
+`
+```
+
+```{ojs}
+//| echo: false
+viewof search = Inputs.select(cog, {format: x => x.LIBELLE, value: cog.find(t => t.LIBELLE == "Grasse")})
+
+cog = db.query(`SELECT * FROM read_csv_auto("https://minio.lab.sspcloud.fr/lgaliana/data/python-ENSAE/cog_2023.csv") WHERE DEP == '06'`)
+dvf = db.query(query)
+
+db = DuckDBClient.of({})
+
+query = `
+  FROM read_parquet('https://minio.lab.sspcloud.fr/projet-formation/nouvelles-sources/data/geoparquet/dvf.parquet')
+  SELECT
+    CAST(date_mutation AS date) AS date,
+    valeur_fonciere, code_commune,
+    longitude, latitude, valeur_fonciere AS valeur_fonciere_bar
+  WHERE code_commune = '${search.COM}'
+`
+
+```
+
+```{ojs}
+viewof table_dvf = Inputs.table(dvf, {columns: ["date", "valeur_fonciere"], rows: 15})
+
+produce_histo = function(dvf){
+  const histo = Plot.plot({
+  style: {backgroundColor: "transparent"},
+  marks: [
+    Plot.rectY(dvf, Plot.binX({y: "count"}, {x: "valeur_fonciere", fill: "#ff562c"})),
+    Plot.ruleY([0])
+  ]
+})
+  return histo
+}
+```
 
 ## Références
