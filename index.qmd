@@ -20,6 +20,7 @@ bibliography: references.bib
 eval: false
 ---
 
+
 ## Contexte
 
 - [**Fichiers détail anonymisés**]{.orange} diffusés sur [insee.fr](https://www.insee.fr/fr/accueil):
@@ -48,35 +49,6 @@ eval: false
     - `Parquet`: < 500Mo
 :::::
 :::
-
-## [Après `Parquet`: le recensement de la population (RP)]{.r-fit-text} 
-
-Retours utilisateurs après la première diffusion du RP en `Parquet` (fin 2023)
-
-:::: {.columns}
-
-::: {.column width="50%"}
-![](/images/retour_utilisateur_1.png){width=400px}
-:::
-
-::: {.column width="50%"}
-![](/images/retour_utilisateur_2.png){width=400px}
-:::
-
-::::
-
-:::: {.columns}
-
-::: {.column width="50%"}
-![](/images/img3.png){width=400px}
-:::
-
-::: {.column width="50%"}
-![](/images/img4.png){width=400px}
-:::
-
-::::
-
 
 ## Enjeux
 
@@ -124,7 +96,7 @@ Retours utilisateurs après la première diffusion du RP en `Parquet` (fin 2023)
 
 ## [Quel gain de confort pour les utilisateurs ?]{.r-fit-text} 
 
-![](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/tableau-perf-parquet.png){fig-align="center"}
+![Pour en savoir plus, [formation de l'Insee aux bonnes pratiques {{< fa brands git-alt >}} et {{< fa brands r-project >}}](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R)](https://inseefrlab.github.io/formation-bonnes-pratiques-git-R/slides/img/tableau-perf-parquet.png){fig-align="center"}
 
 
 ## [Un [guide](https://ssphub.netlify.app/post/parquetrp/) pour accompagner la diffusion]{.r-fit-text}
@@ -141,9 +113,7 @@ Retours utilisateurs après la première diffusion du RP en `Parquet` (fin 2023)
 
 . . .
 
-+ Créer un guide modifiable de [__manière contributive__]{.orange} [{{< fa brands github >}}](https://github.com/InseeFrLab/exemples-recensement-parquet.git) 
-  + [Enrichissement du guide par un MCF en géographie](https://github.com/InseeFrLab/exemples-recensement-parquet/pull/2) ;
-
++ Créer un guide modifiable de [__manière contributive__]{.orange} [{{< fa brands github >}}](https://github.com/InseeFrLab/exemples-recensement-parquet.git) ;
 
 . . .
 
@@ -299,5 +269,36 @@ produce_histo = function(dvf){
   return histo
 }
 ```
+
+## [Après `Parquet`: le recensement de la population (RP)]{.r-fit-text} 
+
+Retours utilisateurs après la première diffusion du RP en `Parquet` (fin 2023)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](/images/retour_utilisateur_1.png){width=400px}
+:::
+
+::: {.column width="50%"}
+![](/images/retour_utilisateur_2.png){width=400px}
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](/images/img3.png){width=400px}
+:::
+
+::: {.column width="50%"}
+![](/images/img4.png){width=400px}
+:::
+
+::::
+
+
+
 
 ## Références
