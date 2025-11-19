@@ -25,14 +25,14 @@ eval: false
 
 - [**Fichiers détail anonymisés**]{.orange} diffusés sur [insee.fr](https://www.insee.fr/fr/accueil):
   - une ligne par observation (un logement, un individu, etc.)
-  - Des produits phare: [Sirene](https://www.insee.fr/fr/information/3591226), [BTS](https://www.insee.fr/fr/statistiques/8287396), [RP](https://www.insee.fr/fr/information/2383215), [fichier des prénoms](https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113), [décès](https://www.insee.fr/fr/information/4769950), etc.
+  - Des produits phares: [Sirene](https://www.insee.fr/fr/information/3591226), [Recensement de la population](https://www.insee.fr/fr/information/2383215), [Base Tous salariés](https://www.insee.fr/fr/statistiques/8287396), [fichier des prénoms](https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113), [décès](https://www.insee.fr/fr/information/4769950), etc.
 
 . . .
 
 
 - Destinés à des [**utilisateurs avancés**]{.orange}:
   - Construire d'autres croisements ou regroupements que ceux proposés sur [insee.fr](https://www.insee.fr/fr/accueil)
-  - Des précautions d'emploi à respecter (pondérations, etc.)
+  - Des précautions d'emploi à respecter (pondérations)
 
 
 ## [Avant `Parquet`: le recensement de la population (RP)]{.r-fit-text} 
@@ -194,7 +194,8 @@ ORDER BY individus_recenses DESC
 ## `Parquet` fin 2025
 
 * Nombreux jeux de données [**volumineux**]{.orange} diffusés en `Parquet`:
-    * Insee: [Sirene](https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/), [REU](https://www.insee.fr/fr/metadonnees/source/serie/s1046), [RP](https://www.insee.fr/fr/information/2383215), [BPE](https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537), etc.
+    * Insee: [Sirene](https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/), [REU](https://www.insee.fr/fr/metadonnees/source/serie/s1046), [RP](https://www.insee.fr/fr/information/2383215), [BPE](https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537), etc. 
+      * **A venir :** format proposé dans le [catalogue de données (Melodi)](https://catalogue-donnees.insee.fr)
     * SSM: [bases statistiques de la délinquance](https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/)
     * [`data.gouv`](https://www.data.gouv.fr/): beaucoup de conversions en `Parquet`
 
