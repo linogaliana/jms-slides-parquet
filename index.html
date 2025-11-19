@@ -430,10 +430,10 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 </div>
 <div id="tabset-1-2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>query <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb2-2"><a href=""></a>  <span class="st">"SELECT SUM(IPONDI) AS individus_recenses, DEPT"</span>,</span>
-<span id="cb2-3"><a href=""></a>  <span class="st">"FROM table_individu"</span>,</span>
-<span id="cb2-4"><a href=""></a>  <span class="st">"WHERE AGED &gt;= 100"</span>,</span>
-<span id="cb2-5"><a href=""></a>  <span class="st">"GROUP BY DEPT"</span>,</span>
+<span id="cb2-2"><a href=""></a>  <span class="st">"SELECT SUM(IPONDI) AS individus_recenses, DEPT "</span>,</span>
+<span id="cb2-3"><a href=""></a>  <span class="st">"FROM table_individu "</span>,</span>
+<span id="cb2-4"><a href=""></a>  <span class="st">"WHERE AGED &gt;= 100 "</span>,</span>
+<span id="cb2-5"><a href=""></a>  <span class="st">"GROUP BY DEPT "</span>,</span>
 <span id="cb2-6"><a href=""></a>  <span class="st">"ORDER BY individus_recenses DESC"</span></span>
 <span id="cb2-7"><a href=""></a>)</span>
 <span id="cb2-8"><a href=""></a><span class="fu">dbGetQuery</span>(con, query)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
@@ -468,10 +468,8 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <ul>
 <li>Nombreux jeux de données <span class="orange"><strong>volumineux</strong></span> diffusés en <code>Parquet</code>:
 <ul>
-<li>Insee: <a href="https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/">Sirene</a>, <a href="https://www.insee.fr/fr/metadonnees/source/serie/s1046">REU</a>, <a href="https://www.insee.fr/fr/information/2383215">RP</a>, <a href="https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537">BPE</a>, etc.
-<ul>
-<li><strong>A venir :</strong> format proposé dans le <a href="https://catalogue-donnees.insee.fr">catalogue de données (Melodi)</a></li>
-</ul></li>
+<li>Insee: <a href="https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/">Sirene</a>, <a href="https://www.insee.fr/fr/metadonnees/source/serie/s1046">REU</a>, <a href="https://www.insee.fr/fr/information/2383215">RP</a>, <a href="https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537">BPE</a>, etc.</li>
+<li>Format bientôt dans le <a href="https://catalogue-donnees.insee.fr">catalogue de données (Melodi)</a></li>
 <li>SSM: <a href="https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/">bases statistiques de la délinquance</a></li>
 <li><a href="https://www.data.gouv.fr/"><code>data.gouv</code></a>: beaucoup de conversions en <code>Parquet</code></li>
 </ul></li>
@@ -480,7 +478,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <ul>
 <li>Quelques <span class="orange"><strong>bonnes pratiques</strong></span> à mettre en oeuvre:
 <ul>
-<li>Optimiser les types des variables, trier les observations, etc.</li>
+<li>Optimiser les types des variables, trier les observations…</li>
 <li><span class="citation" data-cites="mauviere_2024_preparer_parquet">Mauviere (<a href="#/références" role="doc-biblioref" onclick="">2024</a>)</span> donne de nombreux conseils utiles.</li>
 </ul></li>
 </ul>
@@ -500,7 +498,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><a href="https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donnees"><img data-src="./images/dvf.png" style="width:60.0%"></a></p>
+<p><a href="https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donn%C3%A9es"><img data-src="./images/dvf.png" style="width:60.0%"></a></p>
 <figcaption>Un exemple de <em>dataviz</em> construite sur des fichiers <code>Parquet</code> sans serveur. Voir la version interactive <span class="green">ici</span></figcaption>
 </figure>
 </div>
