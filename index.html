@@ -248,8 +248,8 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <ul>
 <li><span class="orange"><strong>Fichiers détail anonymisés</strong></span> diffusés sur <a href="https://www.insee.fr/fr/accueil">insee.fr</a>:
 <ul>
-<li>une ligne par observation (un logement, un individu…)</li>
-<li>Des produits phare: <a href="https://www.insee.fr/fr/information/3591226">Sirene</a>, <a href="https://www.insee.fr/fr/statistiques/8287396">BTS</a>, <a href="https://www.insee.fr/fr/information/2383215">RP</a>, <a href="https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113">fichier des prénoms</a>, <a href="https://www.insee.fr/fr/information/4769950">décès</a>…</li>
+<li>une ligne par observation (un logement, un individu, etc.)</li>
+<li>Des produits phares: <a href="https://www.insee.fr/fr/information/3591226">Sirene</a>, <a href="https://www.insee.fr/fr/information/2383215">Recensement de la population</a>, <a href="https://www.insee.fr/fr/statistiques/8287396">Base Tous salariés</a>, <a href="https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113">fichier des prénoms</a>, <a href="https://www.insee.fr/fr/information/4769950">décès</a>, etc.</li>
 </ul></li>
 </ul>
 <div class="fragment">
@@ -257,7 +257,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <li>Destinés à des <span class="orange"><strong>utilisateurs avancés</strong></span>:
 <ul>
 <li>Construire d’autres croisements ou regroupements que ceux proposés sur <a href="https://www.insee.fr/fr/accueil">insee.fr</a></li>
-<li>Des précautions d’emploi à respecter (pondérations…)</li>
+<li>Des précautions d’emploi à respecter (pondérations)</li>
 </ul></li>
 </ul>
 </div>
@@ -338,7 +338,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 </ul>
 <div class="fragment">
 <ul>
-<li>Un format <span class="orange"><strong>optimisé</strong></span>:
+<li>Un format <span class="orange"><strong>optimisé</strong></span> :
 <ul>
 <li>Lecture et traitement du fichier accélérés</li>
 </ul></li>
@@ -346,7 +346,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 </div>
 <div class="fragment">
 <ul>
-<li>Un format <span class="orange"><strong>fiable</strong></span>:
+<li>Un format <span class="orange"><strong>fiable</strong></span> :
 <ul>
 <li>Données conformes à l’intention du producteur…</li>
 </ul></li>
@@ -369,7 +369,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 </div>
 <div class="fragment">
 <ul>
-<li>Illuster la <span class="orange"><strong>richesse des données</strong></span> avec des exemples ;</li>
+<li>Illustrer la <span class="orange"><strong>richesse des données</strong></span> avec des exemples ;</li>
 </ul>
 </div>
 <div class="fragment">
@@ -395,11 +395,11 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 </thead>
 <tbody>
 <tr class="odd">
-<td>1,334</td>
+<td>1 334</td>
 <td>75</td>
 </tr>
 <tr class="even">
-<td>1,175</td>
+<td>1 175</td>
 <td>13</td>
 </tr>
 <tr class="odd">
@@ -429,15 +429,14 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <span id="cb1-11"><a href=""></a>)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>query <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>query <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
 <span id="cb2-2"><a href=""></a>  <span class="st">"SELECT SUM(IPONDI) AS individus_recenses, DEPT"</span>,</span>
 <span id="cb2-3"><a href=""></a>  <span class="st">"FROM table_individu"</span>,</span>
 <span id="cb2-4"><a href=""></a>  <span class="st">"WHERE AGED &gt;= 100"</span>,</span>
 <span id="cb2-5"><a href=""></a>  <span class="st">"GROUP BY DEPT"</span>,</span>
-<span id="cb2-6"><a href=""></a>  <span class="st">"ORDER BY individus_recenses DESC"</span>,</span>
-<span id="cb2-7"><a href=""></a>  <span class="at">sep =</span> <span class="st">" "</span></span>
-<span id="cb2-8"><a href=""></a>)</span>
-<span id="cb2-9"><a href=""></a><span class="fu">dbGetQuery</span>(con, query)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href=""></a>  <span class="st">"ORDER BY individus_recenses DESC"</span></span>
+<span id="cb2-7"><a href=""></a>)</span>
+<span id="cb2-8"><a href=""></a><span class="fu">dbGetQuery</span>(con, query)</span></code></pre></div><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="tabset-1-3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>table_individu <span class="sc">%&gt;%</span></span>
@@ -469,7 +468,10 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <ul>
 <li>Nombreux jeux de données <span class="orange"><strong>volumineux</strong></span> diffusés en <code>Parquet</code>:
 <ul>
-<li>Insee: <a href="https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/">Sirene</a>, <a href="https://www.insee.fr/fr/metadonnees/source/serie/s1046">REU</a>, <a href="https://www.insee.fr/fr/information/2383215">RP</a>, <a href="https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537">BPE</a>…</li>
+<li>Insee: <a href="https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/">Sirene</a>, <a href="https://www.insee.fr/fr/metadonnees/source/serie/s1046">REU</a>, <a href="https://www.insee.fr/fr/information/2383215">RP</a>, <a href="https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537">BPE</a>, etc.
+<ul>
+<li><strong>A venir :</strong> format proposé dans le <a href="https://catalogue-donnees.insee.fr">catalogue de données (Melodi)</a></li>
+</ul></li>
 <li>SSM: <a href="https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/">bases statistiques de la délinquance</a></li>
 <li><a href="https://www.data.gouv.fr/"><code>data.gouv</code></a>: beaucoup de conversions en <code>Parquet</code></li>
 </ul></li>
@@ -478,7 +480,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <ul>
 <li>Quelques <span class="orange"><strong>bonnes pratiques</strong></span> à mettre en oeuvre:
 <ul>
-<li>Optimiser les types des variables, trier les observations…</li>
+<li>Optimiser les types des variables, trier les observations, etc.</li>
 <li><span class="citation" data-cites="mauviere_2024_preparer_parquet">Mauviere (<a href="#/références" role="doc-biblioref" onclick="">2024</a>)</span> donne de nombreux conseils utiles.</li>
 </ul></li>
 </ul>
@@ -499,7 +501,7 @@ Lino Galiana <a href="https://orcid.org/0000-0001-8663-5100" class="quarto-title
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><a href="https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donnees"><img data-src="./images/dvf.png" style="width:60.0%"></a></p>
-<figcaption>Un exemple de <em>dataviz</em> construites sur des fichiers <code>Parquet</code> sans serveur. Voir la version interactive <span class="green">ici</span></figcaption>
+<figcaption>Un exemple de <em>dataviz</em> construite sur des fichiers <code>Parquet</code> sans serveur. Voir la version interactive <span class="green">ici</span></figcaption>
 </figure>
 </div>
 <div class="cell">
