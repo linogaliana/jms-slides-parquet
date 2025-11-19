@@ -134,22 +134,6 @@ Classer les départements en fonction du nombre de centenaires recensés
 
 ::: {.panel-tabset group="language"}
 
-## `Observable` via `Quarto` {{< fa brands js-square >}} {.unnumbered .unlisted}
-
-```{{ojs}}
-db.query(
-`
-SELECT
-  SUM(IPONDI) AS individus_recenses,
-  DEPT
-FROM table_individu
-  WHERE AGED >= 100
-GROUP BY DEPT
-ORDER BY individus_recenses DESC
-`
-)
-```
-
 ## `Python` {{< fa brands python >}} {.unnumbered .unlisted}
 
 ```{.python}
@@ -190,6 +174,22 @@ table_individu %>%
   arrange(desc(individus_recenses))
 ```
 
+## `Observable` via `Quarto` {{< fa brands js-square >}} {.unnumbered .unlisted}
+
+```{{ojs}}
+db.query(
+`
+SELECT
+  SUM(IPONDI) AS individus_recenses,
+  DEPT
+FROM table_individu
+  WHERE AGED >= 100
+GROUP BY DEPT
+ORDER BY individus_recenses DESC
+`
+)
+```
+
 :::
 
 ## `Parquet` fin 2025
@@ -201,20 +201,22 @@ table_individu %>%
 
 . . .
 
-* Quelques bonnes pratiques à mettre en oeuvre:
+* Quelques [**bonnes pratiques**]{.orange} à mettre en oeuvre:
   * Optimiser les types des variables, trier les observations...
   * @mauviere_2024_preparer_parquet donne de nombreux conseils utiles.
 
 
 ## [Conclusion: quelles perspectives pour la diffusion de données ?]{.r-fit-text} {.smaller}
 
-* Une [**alternative aux API de données**]{.orange}
+* Un complément [**aux API de données**]{.orange}
   * Approche simple et efficace pour la récupération de données brutes
 
 * Permet des **[alternatives à `Shiny` ou `Streamlit`]{.orange}** pour les portails de _dataviz_ 
   * Des _dataviz_ complexes sur des serveurs statiques avec `DuckDB` 🦆 dans le navigateur
 
-![Un exemple de _dataviz_ construites sur des fichiers `Parquet` sans serveur. Version interactive sur [linogaliana.github.io/jms-slides-parquet/](https://linogaliana.github.io/jms-slides-parquet/#/title-slide)](/images/dvf.png)
+[![Un exemple de _dataviz_ construites sur des fichiers `Parquet` sans serveur. Voir la version interactive [ici]{.green}]( /images/dvf.png ){width="60%"}](https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donnees)
+
+
 
 ```{ojs}
 //| echo: false
