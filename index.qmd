@@ -24,15 +24,15 @@ eval: false
 ## Contexte
 
 - [**Fichiers détail anonymisés**]{.orange} diffusés sur [insee.fr](https://www.insee.fr/fr/accueil):
-  - une ligne par observation (un logement, un individu...)
-  - Des produits phare: [Sirene](https://www.insee.fr/fr/information/3591226), [BTS](https://www.insee.fr/fr/statistiques/8287396), [RP](https://www.insee.fr/fr/information/2383215), [fichier des prénoms](https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113), [décès](https://www.insee.fr/fr/information/4769950)...
+  - une ligne par observation (un logement, un individu, etc.)
+  - Des produits phares: [Sirene](https://www.insee.fr/fr/information/3591226), [Recensement de la population](https://www.insee.fr/fr/information/2383215), [Base Tous salariés](https://www.insee.fr/fr/statistiques/8287396), [fichier des prénoms](https://www.insee.fr/fr/statistiques/8595130?sommaire=8595113), [décès](https://www.insee.fr/fr/information/4769950), etc.
 
 . . .
 
 
 - Destinés à des [**utilisateurs avancés**]{.orange}:
   - Construire d'autres croisements ou regroupements que ceux proposés sur [insee.fr](https://www.insee.fr/fr/accueil)
-  - Des précautions d'emploi à respecter (pondérations...)
+  - Des précautions d'emploi à respecter (pondérations)
 
 
 ## [Avant `Parquet`: le recensement de la population (RP)]{.r-fit-text} 
@@ -84,12 +84,12 @@ eval: false
 
 . . .
 
-- Un format [**optimisé**]{.orange}:
+- Un format [**optimisé**]{.orange} :
     + Lecture et traitement du fichier accélérés
 
 . . .
 
-- Un format [**fiable**]{.orange}:
+- Un format [**fiable**]{.orange} :
     - Données conformes à l'intention du producteur...
 
 
@@ -109,7 +109,7 @@ eval: false
 
 . . .
 
-+ Illuster la [__richesse des données__]{.orange} avec des exemples ;
++ Illustrer la [__richesse des données__]{.orange} avec des exemples ;
 
 . . .
 
@@ -126,8 +126,8 @@ Classer les départements en fonction du nombre de centenaires recensés
 
 | individus_recenses | DEPT |
 |--------------------|------|
-| 1,334	| 75 | 
-| 1,175	| 13 | 
+| 1 334	| 75 | 
+| 1 175	| 13 | 
 | 963	| 69 | 
 | 952	| 06 | 
 
@@ -153,13 +153,12 @@ ORDER BY individus_recenses DESC
 ## `R` {{< fa brands r-project >}} {.unnumbered .unlisted}
 
 ```{.r}
-query <- paste(
+query <- paste0(
   "SELECT SUM(IPONDI) AS individus_recenses, DEPT",
   "FROM table_individu",
   "WHERE AGED >= 100",
   "GROUP BY DEPT",
-  "ORDER BY individus_recenses DESC",
-  sep = " "
+  "ORDER BY individus_recenses DESC"
 )
 dbGetQuery(con, query)
 ```
@@ -195,14 +194,15 @@ ORDER BY individus_recenses DESC
 ## `Parquet` fin 2025
 
 * Nombreux jeux de données [**volumineux**]{.orange} diffusés en `Parquet`:
-    * Insee: [Sirene](https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/), [REU](https://www.insee.fr/fr/metadonnees/source/serie/s1046), [RP](https://www.insee.fr/fr/information/2383215), [BPE](https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537)...
+    * Insee: [Sirene](https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/), [REU](https://www.insee.fr/fr/metadonnees/source/serie/s1046), [RP](https://www.insee.fr/fr/information/2383215), [BPE](https://www.insee.fr/fr/statistiques/8217525?sommaire=8217537), etc. 
+      * **A venir :** format proposé dans le [catalogue de données (Melodi)](https://catalogue-donnees.insee.fr)
     * SSM: [bases statistiques de la délinquance](https://www.data.gouv.fr/datasets/bases-statistiques-communale-departementale-et-regionale-de-la-delinquance-enregistree-par-la-police-et-la-gendarmerie-nationales/)
     * [`data.gouv`](https://www.data.gouv.fr/): beaucoup de conversions en `Parquet`
 
 . . .
 
 * Quelques [**bonnes pratiques**]{.orange} à mettre en oeuvre:
-  * Optimiser les types des variables, trier les observations...
+  * Optimiser les types des variables, trier les observations, etc.
   * @mauviere_2024_preparer_parquet donne de nombreux conseils utiles.
 
 
@@ -214,7 +214,7 @@ ORDER BY individus_recenses DESC
 * Permet des **[alternatives à `Shiny` ou `Streamlit`]{.orange}** pour les portails de _dataviz_ 
   * Des _dataviz_ complexes sur des serveurs statiques avec `DuckDB` 🦆 dans le navigateur
 
-[![Un exemple de _dataviz_ construites sur des fichiers `Parquet` sans serveur. Voir la version interactive [ici]{.green}]( /images/dvf.png ){width="60%"}](https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donnees)
+[![Un exemple de _dataviz_ construite sur des fichiers `Parquet` sans serveur. Voir la version interactive [ici]{.green}]( /images/dvf.png ){width="60%"}](https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donnees)
 
 
 
