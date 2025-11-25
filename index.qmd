@@ -17,7 +17,7 @@ footer: |
   **[15e édition des journées de méthodologie statistique](https://journees-methodologie-statistique.insee.net/)**
 format: jms-revealjs
 bibliography: references.bib
-eval: false
+eval: true
 ---
 
 
@@ -214,8 +214,9 @@ ORDER BY individus_recenses DESC
 * Permet des **[alternatives à `Shiny` ou `Streamlit`]{.orange}** pour les portails de _dataviz_ 
   * Des _dataviz_ complexes sur des serveurs statiques avec `DuckDB` 🦆 dans le navigateur
 
+<!----
 [![Un exemple de _dataviz_ construite sur des fichiers `Parquet` sans serveur. Voir la version interactive [ici]{.green}]( /images/dvf.png ){width="60%"}](https://linogaliana.github.io/jms-slides-parquet/#/conclusion-quelles-perspectives-pour-la-diffusion-de-donn%C3%A9es)
-
+-------->
 
 
 ```{ojs}
